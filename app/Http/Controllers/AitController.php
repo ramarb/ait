@@ -7,6 +7,7 @@ use App\Models\FlickrWrapper;
 
 class AitController extends ParentController
 {
+    private $per_page = 50;
     public function __construct(){
         parent::__construct();
         $this->controller = 'endpoint';
@@ -16,7 +17,7 @@ class AitController extends ParentController
     public function index(Request $request){
 
         $flickr = new FlickrWrapper();
-        $flickr->pushArg('per_page',20);
+        $flickr->pushArg('per_page',$this->per_page);
         //$res = $flickr->getPhotoById('32126256356');
         //$res = $flickr->getPhotosByTags('lizasoberano'); $this->p($res,1);die;
 
@@ -27,7 +28,7 @@ class AitController extends ParentController
 
     public function getPhotos(Request $request){
         $flickr = new FlickrWrapper();
-        $flickr->pushArg('per_page',20);
+        $flickr->pushArg('per_page',$this->per_page);
         $flickr->pushArg('page', $request->page_nth);
         $res = $flickr->getPhotosByTags($request->tag_name);
         //$res = $flickr->getPhotoById('32126256356');

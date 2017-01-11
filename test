@@ -1,1 +1,22 @@
-'rubik_v2','rubik','pipeline','saren','focal','air','naut'
+The page is working and deployed, however the task was not exactly as it suppose to be because I have a feelings that I'm the one that AI is looking for
+
+Deployed to Heroku on the following domain
+
+http://ait-ramonito.herokuapp.com/
+
+-the page displays images tagged with "inspection"
+-the page allow the user to search other photos using tags as keywords
+-the app uses angular, bootstap and laravel frameworks
+
+FrontEnd
+https://github.com/asiainspection/assignment/blob/RamonitoAbarquez/js/flickr.js
+https://github.com/asiainspection/assignment/blob/RamonitoAbarquez/resources/views/ait/index.blade.php
+https://github.com/asiainspection/assignment/blob/RamonitoAbarquez/resources/views/ait/layout.blade.php
+
+BackEnd
+https://github.com/asiainspection/assignment/blob/RamonitoAbarquez/app/Models/FlickrWrapper.php
+https://github.com/asiainspection/assignment/blob/RamonitoAbarquez/app/Http/Controllers/AitController.php
+
+
+I'm not familliar with Travis but I was able to setUp TeamCity on my local environment a year ago.
+I was able to integrate team city with phpUnit and github
