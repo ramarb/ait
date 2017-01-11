@@ -73,103 +73,20 @@
         </form>
     </nav>
 
-    <div class="row" id="thumbnail-wrapper" scroll>
-        <div class="col col-md-2 justify-content-center" ng-repeat="thumbnail in thumbnails" style="overflow-x: hidden; text-align: center; height: 180px; overflow-y: hidden">
-            <img style="height: 180px;" class="responsive-img mx-auto justify-content-center" s ng-src="<%thumbnail.url_q%>" imageonload>
-            <div class="mx-auto loader"></div>
-        </div>
-    </div>
-
+    @yield('inner_content')
 
     <div style="margin-top: 10px;" class="mx-auto loader" id="main-preloader"></div>
 
-    @yield('inner_content')
+
 
 </div>
 
 <script>
     var URL = '{{url('')}}';
     var token = '{{csrf_token()}}';
-    var page_nth = 0;
-    var ajax_in_progress = false;
-    var pages = 0;
-
-    //Replace interpolate provider due to blade template conflict
-    var app = angular.module('AitApp',[],function($interpolateProvider) {
-        $interpolateProvider.startSymbol('<%');
-        $interpolateProvider.endSymbol('%>');
-    });
-
-    app.controller('AitCtrl',function($scope, $http, $location, $timeout){
-
-        $scope.thumbnails = [];
-        $scope.tag_name = 'inspection';
-
-        $scope.get_photos = function(){
-
-            ajax_in_progress = true;
-            page_nth++;
-            angular.element(document.querySelector("#main-preloader")).removeClass('hide-me');
-
-            var ajax_url = URL + '/ait/photos';
-            $http.post(ajax_url,{'_token':token,'page_nth':page_nth,'tag_name':$scope.tag_name},[]).then(function(response){
-
-                //store the number of pages one time
-                if(pages === 0){
-                    pages = response.data.photos.pages;
-                }
-
-                angular.forEach(response.data.photos.photo, function(value, key){
-                    $scope.thumbnails.push(value);
-                });
-
-                angular.element(document.querySelector("#main-preloader")).addClass('hide-me');
-                ajax_in_progress = false;
-            });
-        };
-
-        $scope.get_photos();
-
-        $scope.search_now = function(){
-            $scope.thumbnails = [];
-            page_nth = 0;
-            pages = 0;
-            $scope.get_photos();
-
-        };
-
-    });
-
-    //Show preloader when image not yet loaded
-    app.directive('imageonload', function() {
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-                element.addClass('hide-me');
-                element.bind('load', function() {
-                    element.parent().children().remove("div.loader");
-                    element.removeClass('hide-me');
-                });
-            }
-        };
-    });
-
-    app.directive("scroll", function ($window) {
-        return function(scope, element, attrs) {
-            angular.element($window).bind("scroll", function() {
-                console.log(this.scrollHeight);
-                var is_near_to_bottom = (($(window).scrollTop() + $(window).height()) > $(document).height() - 100);
-
-                if(is_near_to_bottom && ajax_in_progress === false && page_nth <= pages){
-                    scope.get_photos();
-                }
-                scope.$apply();
-            });
-        };
-    });
-
-
 </script>
+<script type="text/javascript" src="{{url('js/flickr.js')}}"></script>
+
 
 </body>
 </html>
