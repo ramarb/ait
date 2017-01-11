@@ -62,8 +62,6 @@
     <script type="text/javascript" src="{{url($lib)}}"></script>
 @endforeach
 
-
-
 <div ng-app="AitApp" ng-controller="AitCtrl" class="container">
 
     <nav class="navbar navbar-light bg-faded">
@@ -76,8 +74,6 @@
     @yield('inner_content')
 
     <div style="margin-top: 10px;" class="mx-auto loader" id="main-preloader"></div>
-
-
 
 </div>
 
